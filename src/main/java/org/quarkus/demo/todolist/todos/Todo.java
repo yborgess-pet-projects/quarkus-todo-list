@@ -9,7 +9,6 @@ import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
 
 import java.util.Objects;
-import java.util.StringJoiner;
 
 @Entity
 @Table(name = "TM_TODOS")
@@ -23,7 +22,7 @@ public class Todo {
     @Column(nullable = false)
     private String title;
 
-    private Boolean completed;
+    private boolean completed;
 
     public Todo() {
     }
@@ -49,19 +48,20 @@ public class Todo {
         this.title = title;
     }
 
-    public Boolean getCompleted() {
+    public boolean getCompleted() {
         return completed;
     }
 
-    public void setCompleted(Boolean completed) {
+    public void setCompleted(boolean completed) {
         this.completed = completed;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Todo todo)) return false;
-        return Objects.equals(id, todo.id) && Objects.equals(title, todo.title) && Objects.equals(completed, todo.completed);
+        if (o == null || getClass() != o.getClass()) return false;
+        Todo todo = (Todo) o;
+        return completed == todo.completed && Objects.equals(id, todo.id) && Objects.equals(title, todo.title);
     }
 
     @Override
@@ -71,10 +71,10 @@ public class Todo {
 
     @Override
     public String toString() {
-        return new StringJoiner(", ", Todo.class.getSimpleName() + "[", "]")
-                .add("id=" + id)
-                .add("title='" + title + "'")
-                .add("completed=" + completed)
-                .toString();
+        return "Todo{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", completed=" + completed +
+                '}';
     }
 }

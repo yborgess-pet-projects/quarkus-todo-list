@@ -1,6 +1,10 @@
 package org.quarkus.demo.todolist.todos;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.inject.Inject;
+import jakarta.json.JsonMergePatch;
+import jakarta.json.JsonValue;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -30,6 +34,9 @@ public class TodoResource {
     @Context
     UriInfo uriInfo;
 
+    @Inject
+    ObjectMapper mapper;
+
     @GET
     public Response getAll() {
         List<Todo> all = repository.findAll().list();
@@ -42,7 +49,7 @@ public class TodoResource {
     @GET
     @Path("/{id}")
     public Response getById(@PathParam("id") Long id) {
-        Todo todo = repository.findById(id);
+        Todo todo = repository.findTodoById(id);
 
         return Response.ok()
                 .entity(todo)
@@ -68,19 +75,16 @@ public class TodoResource {
     @Path("/{id}")
     @Consumes("application/merge-patch+json")
     @Transactional
-    public Response edit(@PathParam("id") Long id, Todo todo) {
-        Todo found = repository.findById(id);
+    public Response edit(@PathParam("id") Long id, JsonMergePatch updates) {
+        Todo found = repository.findTodoById(id);
 
-        if (todo.getTitle() != null) {
-            found.setTitle(todo.getTitle());
-        }
-
-        if (todo.getCompleted() != null) {
-            found.setCompleted(todo.getCompleted());
-        }
+        JsonValue target = mapper.convertValue(found, JsonValue.class);
+        JsonValue patched = updates.apply(target);
+        Todo patchedTodo = mapper.convertValue(patched, Todo.class);
+        Todo merged = repository.getEntityManager().merge(patchedTodo);
 
         return Response.ok()
-                .entity(found)
+                .entity(merged)
                 .build();
     }
 
