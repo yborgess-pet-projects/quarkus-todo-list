@@ -15,7 +15,7 @@ This API is the backend of https://github.com/yborgess-pet-projects/react-todo-l
 
 === Basic requirements
 - Requirements:
-  - JDK 17+
+  - JDK 22+
   - Apache Maven 3.9.5+
   - A Container Engine, e.g. [podman](https://podman.io/)
   - A tool to interact with HTTP API exposed by this application, e.g. [httpie](https://httpie.io/)
