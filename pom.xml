@@ -18,7 +18,7 @@
         <quarkus.platform.version>3.11.0</quarkus.platform.version>
 
         <skipITs>true</skipITs>
-        <surefire-plugin.version>3.2.5</surefire-plugin.version>
+        <surefire-plugin.version>3.4.0</surefire-plugin.version>
         <maven-checkstyle-plugin.version>3.3.1</maven-checkstyle-plugin.version>
         <version.checkstyle>10.18.1</version.checkstyle>
 
