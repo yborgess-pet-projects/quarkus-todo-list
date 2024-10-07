@@ -24,7 +24,7 @@
 
         <timestamp>${maven.build.timestamp}</timestamp>
         <maven.build.timestamp.format>yyyyMMddHHmmss</maven.build.timestamp.format>
-        <version.jackson.datatype>2.17.2</version.jackson.datatype>
+        <version.jackson.datatype>2.18.0</version.jackson.datatype>
     </properties>
 
     <dependencyManagement>
