@@ -109,11 +109,22 @@ down
 
 == How to run it on OpenShift
 
+1. Build and push the container image to a container registry that OpenShift can access. You can use the following command to build and push the image to the Quay.io registry:
++
+[source]
+----
+$ mvn clean package -Dquarkus.container-image.build=true -Dquarkus.container-image.registry=quay.io -Dquarkus.container-image.group=yborgess -Dquarkus.container-image.tag=1.0
+
+$ podman push quay.io/yborgess/todo-list-quarkus-boot-backend:1.0
+----
+
+
 1. Apply the following resource:
 +
 [source]
 ----
 $ oc apply -f ./deployment/openshift/deployment.yml
+
 deployment.apps/todo-list-postgresql created
 service/todo-list-database-svc created
 persistentvolumeclaim/todo-list-database-pvc created
