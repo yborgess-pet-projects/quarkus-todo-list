@@ -19,7 +19,7 @@
 
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.1</surefire-plugin.version>
-        <maven-checkstyle-plugin.version>3.5.0</maven-checkstyle-plugin.version>
+        <maven-checkstyle-plugin.version>3.6.0</maven-checkstyle-plugin.version>
         <version.checkstyle>10.20.2</version.checkstyle>
 
         <timestamp>${maven.build.timestamp}</timestamp>
